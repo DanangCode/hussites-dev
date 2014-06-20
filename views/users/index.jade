@@ -1,0 +1,13 @@
+
+extends ../layout
+
+block content
+  h1 Groups
+  #groups
+    for group in groups
+      include group
+
+  h1 Users
+  #items
+    for item in items
+      include user
