@@ -23,9 +23,21 @@ html
     orientation: 'top',
     height: '650px'
     };
-    var local = !{JSON.stringify(items)};  
-    //console.log(local);
-    var timeline = new vis.Timeline(container, local, options);
+    var items = new vis.DataSet(!{JSON.stringify(items)}, {type: {
+                                start: 'Date',
+                                end: 'Date',
+                                country: 'string',
+                                group: 'string'}});
+                                
+    var groups = new vis.DataSet(!{JSON.stringify(groups)}, {type: {
+                                content: 'String',
+                                value: 'number',
+                                id: 'String'}});
+    
+      
+    //console.log(groups);
+    var timeline = new vis.Timeline(container, items, options);
+    
     timeline.setGroups(groups);
     function zoom (percentage) {
        var range = timeline.getWindow();
