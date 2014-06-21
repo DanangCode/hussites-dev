@@ -1,5 +1,46 @@
 doctype html
 html
   include header
+
   body
+
     block content
+  script(src="/javascripts/vis.js")
+
+     
+  script.
+    // create a timeline with some data
+    var container = document.getElementById('visualization');
+  
+    var options = {
+    type: 'point',
+    showMajorLabels: true,
+    groupOrder: function (a, b) {
+      return b.value - a.value;
+    }, //parent.visibleItems.length
+    start: '1420-01-01', 
+    end: '1460-01-01',
+    orientation: 'top',
+    height: '650px'
+    };
+    var local = !{JSON.stringify(items)};  
+    //console.log(local);
+    var timeline = new vis.Timeline(container, local, options);
+    timeline.setGroups(groups);
+    function zoom (percentage) {
+       var range = timeline.getWindow();
+       var interval = range.end - range.start;
+
+       timeline.setWindow({
+           start: range.start.valueOf() - interval * percentage,
+           end:   range.end.valueOf()   + interval * percentage
+       });
+    }
+
+    // attach events to the navigation buttons
+    document.getElementById('zoomIn').onclick    = function () { zoom(-0.2); };
+    document.getElementById('zoomOut').onclick   = function () { zoom( 0.2); };
+  
+  
+
+
