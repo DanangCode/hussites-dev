@@ -16,7 +16,8 @@ html
     type: 'point',
     showMajorLabels: true,
     groupOrder: function (a, b) {
-      return b.value - a.value;
+      console.log(timeline.getItemRange.min)
+      return a.value - b.value;
     }, //parent.visibleItems.length
     start: '1080-01-01', 
     end: '1160-01-01',
