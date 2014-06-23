@@ -16,14 +16,19 @@ html
     type: 'point',
     showMajorLabels: true,
     groupOrder: function (a, b) {
-      console.log(timeline.getItemRange.min)
       return a.value - b.value;
-    }, //parent.visibleItems.length
+    }, 
     start: '1080-01-01', 
     end: '1160-01-01',
     orientation: 'top',
-    height: '650px'
+    //height: '100%'
+    height: (window.innerHeight - 15)
+    //height: '750px'
     };
+    
+    
+    
+    
     var items = new vis.DataSet(!{JSON.stringify(items)}, {type: {
                                 start: 'Date',
                                 end: 'Date',
@@ -53,7 +58,10 @@ html
     // attach events to the navigation buttons
     document.getElementById('zoomIn').onclick    = function () { zoom(-0.2); };
     document.getElementById('zoomOut').onclick   = function () { zoom( 0.2); };
+    window.onresize = function () {
+      //console.log('resize')
+    };
   
-  
+  //timeline.height = (window.innerHeight - 15)
 
 
