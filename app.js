@@ -1,4 +1,6 @@
 var express = require('express');
+//var db = require('./model/db')
+
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
@@ -7,7 +9,6 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var mongoose = require('./routes/mongoose');
 
 var app = express();
 
@@ -24,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/mongoose', mongoose);
+
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
