@@ -1,5 +1,5 @@
 var express = require('express');
-//var db = require('./model/db')
+var db = require('./model/db')
 
 var path = require('path');
 var favicon = require('static-favicon');
