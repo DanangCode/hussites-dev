@@ -6,6 +6,8 @@ var movementSchema = new mongoose.Schema({
   id: String
 });
 
+var Movement = module.exports = mongoose.model('Movement', movementSchema);
+
 // exports.movmentlist = function movementlist(gname,callback){
 //  var Movement = mongoose.model( 'Movement' );
 //  Movement.find({function (err, movement) {

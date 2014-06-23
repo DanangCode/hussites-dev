@@ -1,13 +1,5 @@
 var mongoose = require( 'mongoose' );
 
-
-//mongoose.model( 'Event', eventSchema );
-// 
-// 
-// 
-// 
-// mongoose.model( 'Movement', movementSchema );
-
 var dbURI = process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
   'mongodb://localhost/stories';
