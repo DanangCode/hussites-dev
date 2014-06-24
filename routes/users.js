@@ -16,7 +16,7 @@ console.log('model created');
 router.get('/', function(req, res) {
 console.log('in get');
   var strOutput;
-  Story.find({}, function (err, story) {
+  Story.findOne({}, function (err, story) {
     console.log('in callback');
     if (err) {
      console.log(err);
@@ -24,27 +24,9 @@ console.log('in get');
     } else {
      console.log(story);
      strOutput = story.country + ' created in Group ' + story.group + '\n';
-    }    
+    }   
+    res.send('output : '+ strOutput); 
   });
-  // Story.create({
-  //      content : "England",
-  //      group: "D",
-  //      start: '1500-01-01',
-  //      end: null
-  //    }, function(err, story) {
-  //      console.log('in callback');
-  //      if (err) {
-  //        console.log(err);
-  //        strOutput = 'Oh dear, we\'ve got an error';
-  //      } else {
-  //        console.log('Story created: ' + story);
-  //        strOutput = story.Country + ' created in Group ' + story.group + '\n';
-  //      }
-  //      console.log(strOutput);
-  //      
-  //    });
-  res.send('respond with a resource : '+ strOutput);
- 
 });
 
 module.exports = router;

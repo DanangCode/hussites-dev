@@ -1,1 +1,1 @@
-web: node --debug app.js
+web: node-inspector & node --debug app.js

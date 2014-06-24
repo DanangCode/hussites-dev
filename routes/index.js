@@ -11,8 +11,23 @@ var groups = [{"content": "anabaptist", "value": 1520, "id": "anabaptist"}, {"co
 //   res.render('index', { title: 'Express' });
 // });
 
-router.get('/', function(req, res){
-  res.render('users', { items: items, groups: groups });
+var storydata = require('../model/story');
+
+var mongoose = require( 'mongoose' );
+Story = mongoose.model('Story');
+
+/* GET users listing. */
+router.get('/', function(req, res) {
+console.log('in get');
+  var strOutput;
+  Story.find({}, function (err, stories) {
+    console.log('in callback');
+    if (err) {
+     console.log(err);
+    } 
+    console.log(JSON.stringify(stories));   
+    res.render('users', { items: stories, groups: groups });
+  });
 });
 
 module.exports = router;
