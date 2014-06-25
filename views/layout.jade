@@ -16,7 +16,9 @@ html
     type: 'point',
     showMajorLabels: true,
     groupOrder: function (a, b) {
-      return a.value - b.value;
+      
+      console.log(a.begin);
+      return a.begin.getTime() - b.end.getTime();
     }, 
     start: '1080-01-01', 
     end: '1160-01-01',
@@ -36,6 +38,8 @@ html
                                 group: 'string'}});
                                 
     var groups = new vis.DataSet(!{JSON.stringify(groups)}, {type: {
+                                begin: 'Date',
+                                end: 'Date',
                                 content: 'String',
                                 value: 'number',
                                 id: 'String'}});
