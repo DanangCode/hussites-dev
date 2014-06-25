@@ -54,6 +54,22 @@ html
            end:   range.end.valueOf()   + interval * percentage
        });
     }
+    
+      // retrieve all items having a property group with value 2
+    var hussites = items.get({
+      filter: function (item) {
+        //return item range overlaps with timerange
+        return (item.group == 'hussite');
+      }
+    });   
+    console.log(hussites[0].content);
+    
+    
+    var i;
+    function onRangeChange (properties) {
+      console.log(i++ +' selected items');
+
+    }
 
     // attach events to the navigation buttons
     document.getElementById('zoomIn').onclick    = function () { zoom(-0.2); };
@@ -61,7 +77,9 @@ html
     window.onresize = function () {
       //console.log('resize')
     };
-  
-  //timeline.height = (window.innerHeight - 15)
+    timeline.on('rangechanged', function (properties) {
+      onRangeChange(properties);
+    });
+   
 
 
