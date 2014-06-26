@@ -1,10 +1,116 @@
 extends layout
 
 block content
+  script(src="/javascripts/vis.js")
   #visualization
     .menu
         <input type="button" id="zoomIn" value="Zoom in"/>
         <input type="button" id="zoomOut" value="Zoom out"/>
+  
+        script.
+           // create a timeline with some data
+           var container = document.getElementById('visualization');
+
+           var options = {
+           type: 'point',
+           showMajorLabels: true,
+           groupOrder: function (a, b) {
+
+             //console.log(a.begin);
+             return a.begin.getTime() - b.end.getTime();
+           }, 
+           start: '1080-01-01', 
+           end: '1160-01-01',
+           orientation: 'top'
+           //height: '100%'
+           //height: (window.innerHeight - 20)
+           //height: '750px'
+           };
+
+
+           var items = new vis.DataSet(!{JSON.stringify(items)}, {type: {
+                                       start: 'Date',
+                                       end: 'Date',
+                                       country: 'string',
+                                       group: 'string'}});
+
+
+
+           var groupStore = new vis.DataSet(!{JSON.stringify(groups)}, {type: {
+                                       begin: 'Date',
+                                       end: 'Date',
+                                       content: 'String',
+                                       value: 'number',
+                                       id: 'String'}});
+
+
+           var timeline = new vis.Timeline(container, items, options);
+
+
+           function newGroups() { 
+             return groupStore.get({
+               filter: function (group) {
+
+                 var groupBegin = group.begin.getFullYear ();
+                 var groupEnd = group.end.getFullYear ();
+                 var timelineBegin = timeline.getWindow().start.getFullYear ();
+                 var timelineEnd = timeline.getWindow().end.getFullYear ();
+
+                 var include = (
+                                 (groupBegin > timelineBegin) && 
+                                 (groupBegin < timelineEnd)
+                               ) ||
+                               (
+                                 (groupEnd < timelineEnd) && 
+                                 (groupEnd > timelineBegin)
+                               ) ||
+                               (
+                                 (groupBegin < timelineBegin) &&
+                                 (groupEnd > timelineEnd)
+                               )
+                 // if (group.content == 'reform') {
+                 //         console.log(group.content + ': Gbegin= ' + groupBegin + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + 'begin: ' + 
+                 //                    ((groupBegin > timelineBegin) && (groupBegin < timelineEnd)) );
+                 //         console.log(group.content + ': GEnd= ' + groupEnd + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + ' end: ' +   
+                 //          ( (groupEnd < timelineEnd) && 
+                 //            (groupEnd > timelineBegin)))
+                 //          console.log('include: ' + include)
+                 //        };
+                 return (include);
+               }
+             })
+           };   
+           timeline.setGroups(newGroups());
+
+           function zoom (percentage) {
+              var range = timeline.getWindow();
+              var interval = range.end - range.start;
+
+              timeline.setWindow({
+                  start: range.start.valueOf() - interval * percentage,
+                  end:   range.end.valueOf()   + interval * percentage
+              });
+           }
+
+
+           function onRangeChange (properties) {
+             timeline.setGroups(newGroups());
+             timeline.setOptions({ groupOrder: function (a, b) {
+
+                 //console.log(a.begin);
+                 return a.begin.getTime() - b.end.getTime();
+               }});
+
+           }
+
+           // attach events to the navigation buttons
+           document.getElementById('zoomIn').onclick    = function () { zoom(-0.2); };
+           document.getElementById('zoomOut').onclick   = function () { zoom( 0.2); };
+
+           timeline.on('rangechanged', function (properties) {
+             onRangeChange(properties);
+           });
+
   
   // h1 Groups
   // #groups
