@@ -17,7 +17,7 @@ html
     showMajorLabels: true,
     groupOrder: function (a, b) {
       
-      console.log(a.begin);
+      //console.log(a.begin);
       return a.begin.getTime() - b.end.getTime();
     }, 
     start: '1080-01-01', 
@@ -29,15 +29,15 @@ html
     };
     
     
-    
-    
     var items = new vis.DataSet(!{JSON.stringify(items)}, {type: {
                                 start: 'Date',
                                 end: 'Date',
                                 country: 'string',
                                 group: 'string'}});
                                 
-    var groups = new vis.DataSet(!{JSON.stringify(groups)}, {type: {
+
+                                
+    var groupStore = new vis.DataSet(!{JSON.stringify(groups)}, {type: {
                                 begin: 'Date',
                                 end: 'Date',
                                 content: 'String',
@@ -45,10 +45,19 @@ html
                                 id: 'String'}});
     
       
-    //console.log(groups);
     var timeline = new vis.Timeline(container, items, options);
     
-    timeline.setGroups(groups);
+
+    function newGroups() { 
+      return groupStore.get({
+        filter: function (group) {
+          return (group.begin.getTime() < timeline.getWindow().end.valueOf());
+        }
+      })
+    };   
+    
+    timeline.setGroups(newGroups());
+    
     function zoom (percentage) {
        var range = timeline.getWindow();
        var interval = range.end - range.start;
@@ -59,19 +68,9 @@ html
        });
     }
     
-      // retrieve all items having a property group with value 2
-    var hussites = items.get({
-      filter: function (item) {
-        //return item range overlaps with timerange
-        return (item.group == 'hussite');
-      }
-    });   
-    console.log(hussites[0].content);
     
-    
-    var i;
     function onRangeChange (properties) {
-      console.log(i++ +' selected items');
+      timeline.setGroups(newGroups());
 
     }
 
