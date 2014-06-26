@@ -51,8 +51,27 @@ html
     function newGroups() { 
       return groupStore.get({
         filter: function (group) {
-          return (group.begin.getTime() > timeline.getWindow().start.valueOf() && 
-            (group.begin.getTime() < timeline.getWindow().end.valueOf()));
+          
+          var groupBegin = group.begin.getFullYear ();
+          var groupEnd = group.end.getFullYear ();
+          var timelineBegin = timeline.getWindow().start.getFullYear ();
+          var timelineEnd = timeline.getWindow().end.getFullYear ();
+
+          var include = (
+                          (groupBegin > timelineBegin) && 
+                          (groupBegin < timelineEnd)
+                        ) ||
+                        (
+                          (groupBegin < timelineEnd) && 
+                          (groupEnd > timelineEnd)
+                        )
+          //if (group.content == 'scholasticism') {
+            //console.log(group.content + ': Gbegin= ' + groupBegin + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + 'begin: ' + 
+            //            ((groupBegin > timelineBegin) && (groupBegin < timelineEnd)) );
+            //console.log(group.content + ': GEnd= ' + groupEnd + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + ' end: ' +   
+            //  ((groupEnd > timelineBegin) &&  (groupEnd < timelineEnd)) + ' include: ' + include)
+        //};
+          return (include);
         }
       })
     };   
@@ -82,9 +101,7 @@ html
     // attach events to the navigation buttons
     document.getElementById('zoomIn').onclick    = function () { zoom(-0.2); };
     document.getElementById('zoomOut').onclick   = function () { zoom( 0.2); };
-    window.onresize = function () {
-      //console.log('resize')
-    };
+
     timeline.on('rangechanged', function (properties) {
       onRangeChange(properties);
     });
