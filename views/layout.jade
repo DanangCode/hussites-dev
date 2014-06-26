@@ -51,11 +51,11 @@ html
     function newGroups() { 
       return groupStore.get({
         filter: function (group) {
-          return (group.begin.getTime() > timeline.getWindow().start.valueOf() && group.begin.getTime() < timeline.getWindow().end.valueOf());
+          return (group.begin.getTime() > timeline.getWindow().start.valueOf() && 
+            (group.begin.getTime() < timeline.getWindow().end.valueOf()));
         }
       })
     };   
-    
     timeline.setGroups(newGroups());
     
     function zoom (percentage) {
@@ -71,6 +71,11 @@ html
     
     function onRangeChange (properties) {
       timeline.setGroups(newGroups());
+      timeline.setOptions({ groupOrder: function (a, b) {
+
+          //console.log(a.begin);
+          return a.begin.getTime() - b.end.getTime();
+        }});
 
     }
 
