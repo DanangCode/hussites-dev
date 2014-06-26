@@ -25,7 +25,7 @@ console.log('in get');
     } 
     //console.log(JSON.stringify(stories));   
     console.log('data retrieved');
-    res.render('users', { items: stories, groups: groups });
+    res.render('index', { items: stories, groups: groups });
   });
 });
 
