@@ -62,15 +62,21 @@ html
                           (groupBegin < timelineEnd)
                         ) ||
                         (
-                          (groupBegin < timelineEnd) && 
+                          (groupEnd < timelineEnd) && 
+                          (groupEnd > timelineBegin)
+                        ) ||
+                        (
+                          (groupBegin < timelineBegin) &&
                           (groupEnd > timelineEnd)
                         )
-          //if (group.content == 'scholasticism') {
-            //console.log(group.content + ': Gbegin= ' + groupBegin + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + 'begin: ' + 
-            //            ((groupBegin > timelineBegin) && (groupBegin < timelineEnd)) );
-            //console.log(group.content + ': GEnd= ' + groupEnd + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + ' end: ' +   
-            //  ((groupEnd > timelineBegin) &&  (groupEnd < timelineEnd)) + ' include: ' + include)
-        //};
+          // if (group.content == 'reform') {
+          //         console.log(group.content + ': Gbegin= ' + groupBegin + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + 'begin: ' + 
+          //                    ((groupBegin > timelineBegin) && (groupBegin < timelineEnd)) );
+          //         console.log(group.content + ': GEnd= ' + groupEnd + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + ' end: ' +   
+          //          ( (groupEnd < timelineEnd) && 
+          //            (groupEnd > timelineBegin)))
+          //          console.log('include: ' + include)
+          //        };
           return (include);
         }
       })
