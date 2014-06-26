@@ -51,7 +51,7 @@ html
     function newGroups() { 
       return groupStore.get({
         filter: function (group) {
-          return (group.begin.getTime() < timeline.getWindow().end.valueOf());
+          return (group.begin.getTime() > timeline.getWindow().start.valueOf() && group.begin.getTime() < timeline.getWindow().end.valueOf());
         }
       })
     };   
