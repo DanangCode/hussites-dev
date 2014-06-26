@@ -12,7 +12,7 @@ block content
            var container = document.getElementById('visualization');
 
            var options = {
-           type: 'point',
+
            showMajorLabels: true,
            groupOrder: function (a, b) {
 
@@ -31,6 +31,7 @@ block content
            var items = new vis.DataSet(!{JSON.stringify(items)}, {type: {
                                        start: 'Date',
                                        end: 'Date',
+                                       type: 'string',
                                        country: 'string',
                                        group: 'string'}});
 
@@ -94,12 +95,12 @@ block content
 
 
            function onRangeChange (properties) {
-             // timeline.setGroups(newGroups());
-             //             timeline.setOptions({ groupOrder: function (a, b) {
-             // 
-             //                 //console.log(a.begin);
-             //                 return a.begin.getTime() - b.end.getTime();
-             //               }});
+             timeline.setGroups(newGroups());
+             timeline.setOptions({ groupOrder: function (a, b) {
+
+               //console.log(a.begin);
+               return a.begin.getTime() - b.end.getTime();
+             }});
 
            }
 
@@ -110,14 +111,3 @@ block content
            timeline.on('rangechanged', function (properties) {
              onRangeChange(properties);
            });
-
-  
-  // h1 Groups
-  // #groups
-    //for group in groups
-      //include group
-
-  // h1 Users
-  //  #items
-    //for item in items
-      //include user
