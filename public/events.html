@@ -48,24 +48,35 @@
     //   'dragstart', 'drag', 'dragend',
     //   'mousewheel', 'DOMMouseScroll'
     
+    timeline.on('dragstart', function (properties) {
+      logEvent('dragstart', properties);
+    });
     timeline.on('drag', function (properties) {
       logEvent('drag', properties);
     });
-    timeline.on('touch', function (properties) {
-      logEvent('touch', properties);
+    timeline.on('dragend', function (properties) {
+      logEvent('dragend', properties);
+    });
+
+    timeline.on('hold', function (properties) {
+      logEvent('hold', properties);
     });
     timeline.on('mousewheel', function (properties) {
       logEvent('mousewheel', properties);
     });
-    timeline.on('pinch', function (properties) {
-      logEvent('pinch', properties);
-    });
-    timeline.on('dragstart', function (properties) {
-      logEvent('dragstart', properties);
-    });
+    
     timeline.on('DOMMouseScroll', function (properties) {
       logEvent('DOMMouseScroll', properties);
     });
+    
+    timeline.on('touch', function (properties) {
+      logEvent('touch', properties);
+    });
+    timeline.on('pinch', function (properties) {
+      logEvent('pinch', properties);
+    });
+    
+    
 
     items.on('*', function (event, properties) {
       logEvent(event, properties);

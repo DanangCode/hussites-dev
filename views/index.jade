@@ -94,6 +94,7 @@ block content
            }
 
 
+
            function onRangeChange (properties) {
              timeline.setGroups(newGroups());
              timeline.setOptions({ groupOrder: function (a, b) {
@@ -110,4 +111,8 @@ block content
 
            timeline.on('rangechanged', function (properties) {
              onRangeChange(properties);
+           });
+           timeline.on('drag', function (e) {
+              var perc = (event.gesture.deltaY/200);
+              zoom(perc);
            });
