@@ -12,8 +12,8 @@ block content
            var container = document.getElementById('visualization');
            var year = 31556952000;
            var options = {
-             zoomMax: (year * 800),
-             zoomMin: year,
+             zoomMax: (year * 300),
+             zoomMin: (year * 10),
              showMajorLabels: true,
              groupOrder: function (a, b) {
 
@@ -70,14 +70,6 @@ block content
                                  (groupBegin < timelineBegin) &&
                                  (groupEnd > timelineEnd)
                                )
-                 // if (group.content == 'reform') {
-                 //         console.log(group.content + ': Gbegin= ' + groupBegin + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + 'begin: ' + 
-                 //                    ((groupBegin > timelineBegin) && (groupBegin < timelineEnd)) );
-                 //         console.log(group.content + ': GEnd= ' + groupEnd + ' Tbegin: ' + timelineBegin + ' TEnd: ' + timelineEnd + ' end: ' +   
-                 //          ( (groupEnd < timelineEnd) && 
-                 //            (groupEnd > timelineBegin)))
-                 //          console.log('include: ' + include)
-                 //        };
                  return (include);
                }
              })
@@ -113,7 +105,9 @@ block content
            timeline.on('rangechanged', function (properties) {
              onRangeChange(properties);
            });
+           
            timeline.on('drag', function (e) {
-              var perc = (event.gesture.deltaY/200);
+              var perc = (event.gesture.deltaY/400);
+              console.log('zoom: ' + perc);
               zoom(perc);
            });
