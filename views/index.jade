@@ -106,7 +106,7 @@ block content
            });
            
            timeline.on('drag', function (e) {
-             if (event.gesture.deltaY > event.gesture.deltaX) {
+             if (event.gesture.deltaY > (event.gesture.deltaX*3)) {
               var perc = (event.gesture.deltaY/400);
               //console.log('zoom: ' + perc);
               zoom(perc);
