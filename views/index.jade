@@ -4,20 +4,19 @@ block content
   script(src="/javascripts/vis.js")
   #visualization
     .menu
-        <input type="button" id="zoomIn" value="Zoom in"/>
-        <input type="button" id="zoomOut" value="Zoom out"/>
+        <input type="button" id="zoomIn" value="Stretch"/>
+        <input type="button" id="zoomOut" value="Squish"/>
   
         script.
            // create a timeline with some data
            var container = document.getElementById('visualization');
            var year = 31556952000;
+           
            var options = {
              zoomMax: (year * 300),
              zoomMin: (year * 10),
              showMajorLabels: true,
              groupOrder: function (a, b) {
-
-               //console.log(a.begin);
                return a.begin.getTime() - b.end.getTime();
              }, 
              start: '1300-01-01', 
@@ -107,7 +106,9 @@ block content
            });
            
            timeline.on('drag', function (e) {
+             if (event.gesture.deltaY > event.gesture.deltaX) {
               var perc = (event.gesture.deltaY/400);
-              console.log('zoom: ' + perc);
+              //console.log('zoom: ' + perc);
               zoom(perc);
+            };
            });
