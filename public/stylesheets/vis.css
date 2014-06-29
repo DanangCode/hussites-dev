@@ -293,7 +293,9 @@
 }
 
 .vis.timeline .timeaxis .grid.minor {
+    visibility: hidden; 
   border-color: #e5e5e5;
+  
 }
 
 .vis.timeline .timeaxis .grid.major {
