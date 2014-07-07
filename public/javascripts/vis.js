@@ -5,7 +5,7 @@
  * A dynamic, browser-based visualization library.
  *
  * @version 2.0.0
- * @date    2014-06-19
+ * @date    2014-07-07
  *
  * @license
  * Copyright (C) 2011-2014 Almende B.V, http://almende.com
@@ -7862,14 +7862,24 @@ Timeline.prototype._onDrag = function (event) {
   if (!this.touch.allowDragging) return;
 
   var delta = event.gesture.deltaY;
+  console.log('delta= ' + delta);
+  console.log('');
+   var range = this.range
+   var interval = range.end - range.start;
+   var start = range.start.valueOf() - interval * (delta/120);
+   var end = range.end.valueOf()   + interval * (delta/120);
+   //range.setRange(start, end);
+   //range.zoom( interval * (delta/120));
+
 
   var oldScrollTop = this._getScrollTop();
   var newScrollTop = this._setScrollTop(this.touch.initialScrollTop + delta);
 
   if (newScrollTop != oldScrollTop) {
-    this.redraw(); // TODO: this causes two redraws when dragging, the other is triggered by rangechange already
+    //this.redraw(); // TODO: this causes two redraws when dragging, the other is triggered by rangechange already
   }
 };
+
 
 /**
  * Apply a scrollTop

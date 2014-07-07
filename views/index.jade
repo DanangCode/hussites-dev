@@ -13,6 +13,7 @@ block content
            var year = 31556952000;
            
            var options = {
+             //width: '50%',
              zoomMax: (year * 300),
              zoomMin: (year * 10),
              showMajorLabels: true,
@@ -21,7 +22,8 @@ block content
              }, 
              start: '1300-01-01', 
              end: '1350-01-01',
-             orientation: 'top'
+             orientation: 'top',
+             //height: '550px'
              //height: '100%'
              //height: (window.innerHeight - 20)
              //height: '750px'
@@ -85,12 +87,9 @@ block content
               });
            }
 
-
-
            function onRangeChange (properties) {
              timeline.setGroups(newGroups());
              timeline.setOptions({ groupOrder: function (a, b) {
-
                //console.log(a.begin);
                return a.begin.getTime() - b.end.getTime();
              }});
