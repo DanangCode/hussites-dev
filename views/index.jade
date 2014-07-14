@@ -19,9 +19,11 @@ block content
              showMajorLabels: true,
              groupOrder: function (a, b) {
                return a.begin.getTime() - b.end.getTime();
-             }, 
-             start: '1300-01-01', 
-             end: '1350-01-01',
+             },
+             start: '!{start}', 
+             end: '!{end}', 
+             //start: '1300-01-01', 
+             //end: '1350-01-01',
              orientation: 'top',
              //height: '550px'
              //height: '100%'

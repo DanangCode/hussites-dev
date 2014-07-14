@@ -7,7 +7,6 @@ var storySchema = new mongoose.Schema({
   group: String
 });
 
-
 var Story = module.exports = mongoose.model('Story', storySchema);
 
 // exports.eventlist = function itemlist(gname,callback){
